@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Tweet;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowTweets extends Component
 {
+    use WithPagination;
+
     public $content = "Valor defaut ubuyb";
 
     protected $rules = [
@@ -16,7 +19,7 @@ class ShowTweets extends Component
     public function render()
     {
 
-        $tweets = Tweet::with('user')->get();
+        $tweets = Tweet::with('user')->latest()->paginate(10);
 
         return view('livewire.show-tweets', [
             'tweets' => $tweets
@@ -29,10 +32,10 @@ class ShowTweets extends Component
 
         $this->validate();
 
-        Tweet::create([
+        auth()->user()->tweets()->create([
             'content' => $this->content,
-            'user_id' => 1,
         ]);
+
 
         $this->content = '';
     }
