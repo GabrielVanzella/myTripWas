@@ -11,7 +11,18 @@ Show Tweets
 
 @foreach ($tweets as $tweet)
 
+<div class="w-1/8">
+    @if ($tweet->user->photo)
+
+<img src="{{  url("storage/{$tweet->user->photo}") }}" alt="{{ $tweet->user->name }}">
+
+@else
+
+<img src="{{  url('imgs/no-image.png') }}" alt="{{ $tweet->user->name }}">
+@endif
+
 {{ $tweet->user->name }} - {{ $tweet->content }} 
+</div>
 
 @if ($tweet->likes->count()) 
 <a href="#" wire:click.prevent="unlike({{ $tweet->id }})">Descurtir</a>
