@@ -14,7 +14,7 @@ Route::get('/tweets', ShowTweets::class)
             ->middleware('auth');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::middleware([
